@@ -1144,21 +1144,29 @@ break;
 case 'p50': {
     if (!m.isGroup) return;
     if (!Access) return;
-    if (m.quoted) {
-        for (let i = 0; i < 50; i++) { // Loop sebanyak 50 kali
-            conn.sendMessage(m.chat, {
-                forward: m.quoted.fakeObj,
-                mentions: participants.map(a => a.id)
-            });
+
+    const sendMessage = async (index) => {
+        if (index < 50) { // Loop sebanyak 50 kali
+            if (m.quoted) {
+                conn.sendMessage(m.chat, {
+                    forward: m.quoted.fakeObj,
+                    mentions: participants.map(a => a.id)
+                });
+            } else {
+                conn.sendMessage(m.chat, {
+                    text: q ? q : 'mau grup yang santai, asik dan bebas peraturan? join sekarang juga\nhttps://chat.whatsapp.com/DtSZAlNLv9510yMrwTHH6O\n\njanlup follow salurannya juga!\nhttps://whatsapp.com/channel/0029Vb2ciRrHltY4OrVn4I2O',
+                    mentions: participants.map(a => a.id)
+                }, { quoted: m });
+            }
+
+            // Delay 1 detik setiap 10 pesan
+            const delay = (index % 10 === 9) ? 1000 : 500;
+
+            setTimeout(() => sendMessage(index + 1), delay);
         }
-    } else {
-        for (let i = 0; i < 50; i++) { // Loop sebanyak 50 kali
-            conn.sendMessage(m.chat, {
-                text: q ? q : 'mau grup yang santai, asik dan bebas peraturan? join sekarang juga\nhttps://chat.whatsapp.com/DtSZAlNLv9510yMrwTHH6O\n\njanlup follow salurannya juga!\nhttps://whatsapp.com/channel/0029Vb2ciRrHltY4OrVn4I2O',
-                mentions: participants.map(a => a.id)
-            }, { quoted: m });
-        }
-    }
+    };
+
+    sendMessage(0);
 }
 break;
 
@@ -1174,27 +1182,6 @@ case 'p100': {
         }
     } else {
         for (let i = 0; i < 100; i++) { // Loop sebanyak 100 kali
-            conn.sendMessage(m.chat, {
-                text: q ? q : 'mau grup yang santai, asik dan bebas peraturan? join sekarang juga\nhttps://chat.whatsapp.com/DtSZAlNLv9510yMrwTHH6O\n\njanlup follow salurannya juga!\nhttps://whatsapp.com/channel/0029Vb2ciRrHltY4OrVn4I2O',
-                mentions: participants.map(a => a.id)
-            }, { quoted: m });
-        }
-    }
-}
-break;
-
-case 'jir': {
-    if (!m.isGroup) return;
-    if (!Access) return;
-    if (m.quoted) {
-        for (let i = 0; i < 1000; i++) { // Loop sebanyak 1000 kali
-            conn.sendMessage(m.chat, {
-                forward: m.quoted.fakeObj,
-                mentions: participants.map(a => a.id)
-            });
-        }
-    } else {
-        for (let i = 0; i < 1000; i++) { // Loop sebanyak 1000 kali
             conn.sendMessage(m.chat, {
                 text: q ? q : 'mau grup yang santai, asik dan bebas peraturan? join sekarang juga\nhttps://chat.whatsapp.com/DtSZAlNLv9510yMrwTHH6O\n\njanlup follow salurannya juga!\nhttps://whatsapp.com/channel/0029Vb2ciRrHltY4OrVn4I2O',
                 mentions: participants.map(a => a.id)
